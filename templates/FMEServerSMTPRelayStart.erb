@@ -1,0 +1,43 @@
+#!/bin/sh
+# chkconfig: 3 98 99
+### BEGIN INIT INFO
+# Provides:          FMEServerSMTPRelay
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     3
+# Default-Stop:      6
+# Short-Description: Startup of FME Server SMTP Relay
+# Description: Startup of FME Server SMTP Relay
+### END INIT INFO
+
+RETVAL=0
+
+# start, debug, stop, and status functions
+start() {
+        <%= @install_directory %>/Server/startFMEServerSMTPRelay.sh &
+        RETVAL=$?
+}
+
+stop() {
+        <%= @install_directory %>/Server/stopFMEServerSMTPRelay.sh
+        RETVAL=$?
+}
+
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        stop
+        start
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $RETVAL

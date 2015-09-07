@@ -1,0 +1,43 @@
+#!/bin/sh
+# chkconfig: 2345 99 01
+### BEGIN INIT INFO
+# Provides:          fmeserver
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Startup of FME Server
+# Description: Startup of FME Server
+### END INIT INFO
+
+RETVAL=0
+
+# start, debug, stop, and status functions
+start() {
+        <%= @install_directory %>/Server/startServer.sh &
+        RETVAL=$?
+}
+
+stop() {
+        <%= @install_directory %>/Server/stopServer.sh
+        RETVAL=$?
+}
+
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        stop
+        start
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $RETVAL
