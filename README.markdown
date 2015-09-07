@@ -16,7 +16,17 @@ as a specific user and correctly configure the [run levels](http://docs.safe.com
 
 # Usage
 
-TO DO
+Install fme server by obtaining the installtion media from a custom location
+
+    package { 'lsb-core': }
+    package { 'unzip': }
+    package { 'zip': }
+
+    class { 'fmeserver' :
+      install_source => 'http://your.local.filestore/fme-server-b15515-linux-x64.run',
+      require        => Package['lsb-core', 'unzip', 'zip']
+    }
+
 
 # Limitations
 
