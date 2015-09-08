@@ -1,3 +1,26 @@
+# == Class: fmeserver
+#
+# This is the fmeserver module. This class installs FME Server and manages the
+# created services.
+#
+# This class optionally manages zip and lsb-core packages which are both 
+# required by fmeserver.
+#
+# === Parameters
+#
+# [*install_source*]    The location of the installation media obtainable via wget
+# [*home_directory*]    A workspace directory for storing installation media
+# [*install_directory*] The directory where fme should be installed to
+# [*user*]              who will run fme server
+# [*group*]             of the user who will run fme server
+# [*manage_user*]       if this module should managed the fme user
+# [*manage_group*]      if this module should managed the fme group
+# [*hostname*]          where this fme server will be run from
+# [*admin_username*]    the username used to login to fme server 
+# [*admin_password*]    the password used to login to fme server
+# [*zip_version*]       the version of zip to install (false stosp install)
+# [*lsb_core_version*]  the version of lsb-core to install (false stosp install)
+# 
 class fmeserver (
   $install_source    = 'http://downloads.safe.com/fme/2015/fme-server-b15515-linux-x64.run',
   $home_directory    = '/opt/safe',
@@ -6,7 +29,6 @@ class fmeserver (
   $group             = 'fme',
   $manage_user       = true,
   $manage_group      = true,
-  $manage_packages   = true,
   $hostname          = $::fqdn,
   $admin_username    = 'admin',
   $admin_password    = 'password',

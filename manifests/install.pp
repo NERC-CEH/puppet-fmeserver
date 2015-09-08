@@ -1,3 +1,8 @@
+# == Class: fmeserver::install
+#
+# This class manages the installation of fme server. It should not be refered
+# to outside of this module.
+#
 class fmeserver::install (
   $install_source    = $fmeserver::install_source,
   $home_directory    = $fmeserver::home_directory,

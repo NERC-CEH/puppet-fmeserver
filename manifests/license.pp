@@ -1,3 +1,16 @@
+# == Class: fmeserver::license
+#
+# Provisions a node to license its local installation of fme server (require
+# fmeserver to be defined)
+#
+# This class optionally manages the dependencies required to license fmeserver.
+
+# === Parameters
+#
+# [*license_server*]       The location of a licenser server which fmeserver should use
+# [*libgtkglext1_version*] The version of gtkglext1 to manage (false stops install)
+# [*libjpeg62_version*]    The version of libjpeg62 to manage (false stops install)
+#
 class fmeserver::license (
   $license_server,
   $libgtkglext1_version = installed,

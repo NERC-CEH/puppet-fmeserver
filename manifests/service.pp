@@ -1,9 +1,14 @@
+# == Define: fmeserver::service
+#
+# This define helps manage the fme services. It should not be refered to
+# outside of this module
+#
 define fmeserver::service (
   $start_priority,
   $stop_priority,
   $user              = $fmeserver::user,
   $install_directory = $fmeserver::install_directory,
-){
+) {
   $init_script = "/etc/init.d/${name}"
   
   $start_runlevel = $osfamily ? {
