@@ -40,6 +40,5 @@ define fmeserver::service (
 
   service { $name :
     ensure => running,
-    enable => true,
   }
 }
