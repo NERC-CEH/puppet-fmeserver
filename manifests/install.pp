@@ -3,9 +3,13 @@ class fmeserver::install (
   $home_directory    = $fmeserver::home_directory,
   $install_directory = $fmeserver::install_directory,
   $user              = $fmeserver::user,
+  $admin_username    = $fmeserver::admin_username,
+  $admin_password    = $fmeserver::admin_password,
   $group             = $fmeserver::group,
   $hostname          = $fmeserver::hostname,
   $timeout           = 600,
+  $zip_version       = $fmeserver::zip_version,
+  $lsb_core_version  = $fmeserver::lsb_core_version,
 ) {
   $install_media    = "${home_directory}/fme-server.run"
   $install_download = "/tmp/fme-server.run"
@@ -18,15 +22,35 @@ class fmeserver::install (
     mode   => '0640',
   }
 
-  include wget
-  wget::fetch { $install_source :
-    destination => $install_download,
+  # If an install source has been specified then we will attempt to download it
+  if $install_source {
+    include wget
+    wget::fetch { $install_source :
+      destination => $install_download,
+    }
+
+    file { $install_media : 
+      source  => $install_download,
+      ensure  => file,
+      mode    => '0755',
+      require => Wget::Fetch[$install_source],
+      before  => Exec['install_fmeserver'],
+    }
   }
 
-  file { $install_media: 
-    source => $install_download,
-    ensure => file,
-    mode   => '0755',
+  # The installer requires lsb-core and zip to be installed
+  if $lsb_core_version {
+    package { 'lsb-core' :
+      ensure => $lsb_core_version,
+      before => Exec['install_fmeserver'],
+    }
+  }
+
+  if $zip_version {
+    package { 'zip' :
+      ensure => $zip_version,
+      before => Exec['install_fmeserver'],
+    }
   }
 
   file { $install_config :
@@ -36,7 +60,7 @@ class fmeserver::install (
     content => template('fmeserver/install.cfg.erb'),
   }
 
-  exec { 'install fme server' :
+  exec { 'install_fmeserver' :
     command => "${install_media} -- --file ${install_config}",
     user    => $user,
     timeout => $timeout,

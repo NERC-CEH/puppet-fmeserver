@@ -23,6 +23,15 @@ stop() {
         RETVAL=$?
 }
 
+status() {
+        ps -ef | grep -v grep | grep '<%= @install_directory %>/Server/startWebSocketServer.sh' > /dev/null 2>&1
+        RETVAL=$?
+        if [ $RETVAL -ne 0 ]; then
+                echo "FMEServerWebSocketStart stopped"
+        else
+                echo "FMEServerWebSocketStart running"
+        fi
+}
 
 case "$1" in
   start)
@@ -30,6 +39,9 @@ case "$1" in
         ;;
   stop)
         stop
+        ;;
+  status)
+        status
         ;;
   restart)
         stop

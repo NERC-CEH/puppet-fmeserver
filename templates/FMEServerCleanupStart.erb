@@ -23,6 +23,15 @@ stop() {
         RETVAL=$?
 }
 
+status() {
+        ps -ef | grep -v grep | grep '<%= @install_directory %>/Server/startCleanup.sh' > /dev/null 2>&1
+        RETVAL=$?
+        if [ $RETVAL -ne 0 ]; then
+                echo "FMEServerCleanupStart stopped"
+        else
+                echo "FMEServerCleanupStart running"
+        fi
+}
 
 case "$1" in
   start)
@@ -31,12 +40,15 @@ case "$1" in
   stop)
         stop
         ;;
+  status)
+        status
+        ;;
   restart)
         stop
         start
         ;;
   *)
-        echo "Usage: $0 {start|stop|restart}"
+        echo "Usage: $0 {start|stop|status|restart}"
         exit 1
 esac
 

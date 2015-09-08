@@ -20,6 +20,11 @@ stop() {
     RETVAL=$?
 }
 
+status() {
+    su <%= @user %> -c '<%= @install_directory %>/Utilities/pgsql/bin/pg_ctl status -D <%= @install_directory %>/Utilities/pgsql/data'
+    RETVAL=$?
+}
+
 case "$1" in
   start)
         start
@@ -27,8 +32,11 @@ case "$1" in
   stop)
         stop
         ;;
+  status)
+        status
+        ;;
   *)
-    echo "Usage: $0 {start|stop}"
+    echo "Usage: $0 {start|stop|status}"
     exit 1
 esac
 

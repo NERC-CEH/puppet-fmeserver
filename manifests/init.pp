@@ -6,11 +6,16 @@ class fmeserver (
   $group             = 'fme',
   $manage_user       = true,
   $manage_group      = true,
+  $manage_packages   = true,
   $hostname          = $::fqdn,
+  $admin_username    = 'admin',
+  $admin_password    = 'password',
+  $zip_version       = installed,
+  $lsb_core_version  = installed,
 ) {
 
   if $manage_user {
-    # Ensure the tomcat user is present and has a home
+    # Ensure the fme user is present
     user { $user :
       ensure => present,
       gid    => $group,
@@ -18,7 +23,7 @@ class fmeserver (
   }
 
   if $manage_group {
-    # Ensure the tomcat group is present
+    # Ensure the fme group is present
     group { $group :
       ensure => present,
     }

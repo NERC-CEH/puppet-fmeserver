@@ -34,7 +34,7 @@ define fmeserver::service (
   }
 
   service { $name :
-    ensure    => running,
-    hasstatus => false,
+    ensure => running,
+    enable => true,
   }
 }

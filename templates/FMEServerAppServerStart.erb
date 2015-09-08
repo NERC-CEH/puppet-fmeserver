@@ -26,6 +26,16 @@ stop() {
     RETVAL=$?
 }
 
+status() {
+    ps -p `cat /var/run/catalina.pid` > /dev/null 2>&1
+    RETVAL=$?
+    if [ $RETVAL -ne 0 ]; then
+        echo "FMEServerAppserverStart stopped"
+    else
+        echo "FMEServerAppserverStart running"
+    fi
+}
+
 restart() {
     stop
     start
@@ -38,11 +48,14 @@ case "$1" in
   stop)
         stop
         ;;
+  status)
+        status
+        ;;
   restart)
         restart
         ;;
   *)
-    echo "Usage: $0 {start|stop|restart}"
+    echo "Usage: $0 {start|stop|status|restart}"
     exit 1
 esac
 

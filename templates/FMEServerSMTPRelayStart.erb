@@ -23,6 +23,15 @@ stop() {
         RETVAL=$?
 }
 
+status() {
+        JAVA_HOME=<%= @install_directory %>/Utilities/jre <%= @install_directory %>/Utilities/smtprelay/james/bin/phoenix.sh check > /dev/null 2>&1
+        RETVAL=$?
+        if [ $RETVAL -ne 0 ]; then
+                echo "FMEServerSMTPRelay stopped"
+        else
+                echo "FMEServerSMTPRelay running"
+        fi
+}
 
 case "$1" in
   start)
@@ -30,6 +39,9 @@ case "$1" in
         ;;
   stop)
         stop
+        ;;  
+  status)
+        status
         ;;
   restart)
         stop
