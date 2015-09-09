@@ -1,7 +1,7 @@
 # == Class: fmeserver::arcsde
 #
-# This links the fme server installation to an ArcSDE SDK installation to 
-# enable the SDE30 format.
+# This copies the ArcSDE SDK libraries which FME requires to enable the SDE30
+# format.
 #
 # See http://fme.ly/8q8 for more details.
 #
@@ -19,7 +19,8 @@ class fmeserver::arcsde (
   $ld_library_path = "${fmeserver::install_directory}/Server/lib/fmeutil/fmecore"
 
   File {
-    ensure  => link,
+    ensure  => file,
+    mode    => '0755',
     owner   => $fmeserver::user,
     group   => $fmeserver::group,
     require => Class['fmeserver::install'],
