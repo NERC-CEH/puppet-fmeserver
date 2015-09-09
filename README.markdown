@@ -28,6 +28,11 @@ License the fme server installation against your floating license server:
       license_server => 'your.licserver',
     }
 
+Enable SDE Formats
+
+    class { 'fmeserver::arcsde' :
+      path => '/opt/esri/arcsde93',
+    }
 
 # Limitations
 
