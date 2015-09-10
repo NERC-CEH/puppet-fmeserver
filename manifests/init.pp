@@ -13,6 +13,8 @@
 # [*install_directory*] The directory where fme should be installed to
 # [*user*]              who will run fme server
 # [*group*]             of the user who will run fme server
+# [*uid*]               of the user who will run fme server
+# [*gid*]               of the group who will run fme server
 # [*manage_user*]       if this module should managed the fme user
 # [*manage_group*]      if this module should managed the fme group
 # [*hostname*]          where this fme server will be run from
@@ -27,6 +29,8 @@ class fmeserver (
   $install_directory = '/opt/safe/fmeserver',
   $user              = 'fme',
   $group             = 'fme',
+  $uid               = undef,
+  $gid               = undef,
   $manage_user       = true,
   $manage_group      = true,
   $hostname          = $::fqdn,
@@ -39,6 +43,7 @@ class fmeserver (
   if $manage_user {
     # Ensure the fme user is present
     user { $user :
+      uid    => $uid,
       ensure => present,
       gid    => $group,
     }
@@ -47,6 +52,7 @@ class fmeserver (
   if $manage_group {
     # Ensure the fme group is present
     group { $group :
+      gid    => $gid,
       ensure => present,
     }
   }
