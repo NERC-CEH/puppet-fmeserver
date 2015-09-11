@@ -1,0 +1,20 @@
+{
+  "name": "ceh-fmeserver",
+  "version": "1.2.0",
+  "author": "Centre for Ecology & Hydrology",
+  "license": "GPL-2.0",
+  "summary": "This module handles the management and installation of Safe Software - FME Server",
+  "source": "https://github.com/NERC-CEH/puppet-fmeserver",
+  "project_page": "https://forge.puppetlabs.com/ceh/fmeserver",
+  "issues_url": "https://github.com/NERC-CEH/puppet-fmeserver/issues",
+  "tags": ["fmeserver", "safe software", "fme"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem": "Ubuntu",
+    "operatingsystemrelease": ["14.04" ]
+    }
+   ],
+  "dependencies": [
+    { "name": "maestrodev/wget", "version_requirement": ">=1.6.0 <2.0.0" }
+  ]
+}
