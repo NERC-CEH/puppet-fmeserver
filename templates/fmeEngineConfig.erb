@@ -1,7 +1,7 @@
 # ************** SAFE FME ENGINE SETTINGS START **************
 
 GLOBAL_SECTION                                                                              \
-MACRO_DEF FME_SERVER_ROOT "/opt/safe/fmeserver"                                 \
+MACRO_DEF FME_SERVER_ROOT "<%= @install_directory %>"                                 \
 FME_WORKING_DIR "!FME_SERVER_ROOT!/DefaultResults"                                          \
 FME_MAPPING_DIR "!FME_SERVER_ROOT!/Server/repository/"                                      \
 FME_RESULT_LIFETIME <%= @results_lifetime %>                                                \
@@ -15,10 +15,10 @@ SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OU
 FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!                                         \
 FME_ENGINE_MEMORY_REDLINE 0.5                                                               \
 MACRO_DEF FME_DATA_REPOSITORY "!FME_SERVER_ROOT!/Server/Upload/"                            \
-MACRO_DEF FME_SHAREDRESOURCE_LOG "/opt/safe/fmeserver/Logs/"                    \
-MACRO_DEF FME_SHAREDRESOURCE_DATA "/opt/safe/fmeserver/Data/"                   \
-MACRO_DEF FME_SHAREDRESOURCE_TEMP "/opt/safe/fmeserver/Temp/"                   \
-MACRO_DEF FME_SHAREDRESOURCE_BACKUP "/opt/safe/fmeserver/Backup/"
+MACRO_DEF FME_SHAREDRESOURCE_LOG "<%= @install_directory %>/Logs/"                    \
+MACRO_DEF FME_SHAREDRESOURCE_DATA "<%= @install_directory %>/Data/"                   \
+MACRO_DEF FME_SHAREDRESOURCE_TEMP "<%= @install_directory %>/Temp/"                   \
+MACRO_DEF FME_SHAREDRESOURCE_BACKUP "<%= @install_directory %>/Backup/"
 
 SUB_SECTION FILE_DOWNLOAD_SERVICE                                                           \
 FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
