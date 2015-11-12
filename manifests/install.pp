@@ -76,7 +76,7 @@ class fmeserver::install (
   file { "$install_config/Server/fmeEngineConfig.txt" :
     owner   => $user,
     group   => $group,
-    mode    => '0644',
+    mode    => '0640',
     content => template('fmeserver/fmeEngineConfig.erb'),
   }
 }
