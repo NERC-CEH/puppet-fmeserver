@@ -34,7 +34,7 @@ class fmeserver::install (
       destination => $install_download,
     }
 
-    file { $install_media : 
+    file { $install_media :
       source  => $install_download,
       ensure  => file,
       mode    => '0755',
@@ -71,5 +71,12 @@ class fmeserver::install (
     timeout => $timeout,
     require => File[$install_config],
     creates => $install_directory,
+  }
+
+  file { "$install_config/Server/fmeEngineConfig.txt" :
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+    content => template('fmeserver/fmeEngineConfig.erb'),
   }
 }

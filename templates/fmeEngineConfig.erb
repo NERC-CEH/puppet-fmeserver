@@ -1,0 +1,108 @@
+# ************** SAFE FME ENGINE SETTINGS START **************
+
+GLOBAL_SECTION                                                                              \
+MACRO_DEF FME_SERVER_ROOT "<%= @install_directory %>"                                 \
+FME_WORKING_DIR "!FME_SERVER_ROOT!/DefaultResults"                                          \
+FME_MAPPING_DIR "!FME_SERVER_ROOT!/Server/repository/"                                      \
+FME_RESULT_LIFETIME <%= @results_lifetime %>                                                \
+FME_PURGE_INTERVAL <%= @purge_interval %>                                                   \
+AUTO_FILE_PREFIX FME_                                                                       \
+AUTO_DIR_PREFIX FME_                                                                        \
+RECEIVE_TIMEOUT 0                                                                           \
+FME_SHARED_RESOURCE_DIR "!FME_SERVER_ROOT!/Resources/shared"                                \
+FME_SERVER_LOG_FILE "!FME_SERVER_ROOT!/Logs/engine/current/!FME_INSTANCE_NAME!.log" FALSE        \
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!       \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!                                         \
+FME_ENGINE_MEMORY_REDLINE 0.5                                                               \
+MACRO_DEF FME_DATA_REPOSITORY "!FME_SERVER_ROOT!/Server/Upload/"                            \
+MACRO_DEF FME_SHAREDRESOURCE_LOG "<%= @install_directory %>/Logs/"                    \
+MACRO_DEF FME_SHAREDRESOURCE_DATA "<%= @install_directory %>/Data/"                   \
+MACRO_DEF FME_SHAREDRESOURCE_TEMP "<%= @install_directory %>/Temp/"                   \
+MACRO_DEF FME_SHAREDRESOURCE_BACKUP "<%= @install_directory %>/Backup/"
+
+SUB_SECTION FILE_DOWNLOAD_SERVICE                                                           \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+MACRO_DEF FME_SERVER_DEST_DIR "!FME_AUTO_DIR_NAME!.zip"                                        \
+SUCCESS_RESPONSE 0:Translation Successful|NotificationLocation=!FME_AUTO_DIR_NAME!_nw|OutputLocation=!FME_AUTO_DIR_NAME!|ResultRootDir=/fmedatadownload/results|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION STREAM_DOWNLOAD_SERVICE                                                         \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+PRE_COMMAND mkdir "!FME_AUTO_DIR_NAME!"                                                     \
+MACRO_DEF FME_SERVER_DEST_DIR "!FME_AUTO_DIR_NAME!/"                                        \
+SUCCESS_RESPONSE 0:Translation Successful|NotificationLocation=!FME_AUTO_DIR_NAME!_nw|OutputLocation=!FME_AUTO_DIR_NAME!|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION WFS_SERVICE                                                                     \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+PRE_COMMAND mkdir "!FME_AUTO_DIR_NAME!"                                                     \
+MACRO_DEF FME_SERVER_DEST_DIR "!FME_AUTO_DIR_NAME!/"                                        \
+SUCCESS_RESPONSE 0:Translation Successful|OutputLocation=!FME_AUTO_DIR_NAME!|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION WMS_SERVICE                                                                     \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+PRE_COMMAND mkdir "!FME_AUTO_DIR_NAME!"                                                     \
+MACRO_DEF FME_SERVER_DEST_DIR "!FME_AUTO_DIR_NAME!/"                                        \
+SUCCESS_RESPONSE 0:Translation Successful|OutputLocation=!FME_AUTO_DIR_NAME!|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION SERVER_CONSOLE_CLIENT                                                           \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION SERVER_JOB_SUBMITTER                                                            \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!       \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION JOB_SUBMITTER_SERVICE                                                           \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NotificationLocation=!FME_AUTO_DIR_NAME!_nw|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION REST_SERVICE                                                                    \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION NOTIFICATION_SERVICE                                                            \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NotificationLocation=!FME_AUTO_DIR_NAME!_nw|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION SERVER_STREAM_FORMAT                                                            \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION INFORMATICA_CLIENT                                                              \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION SERVER_SCHEDULER                                                                \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                          \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+SUB_SECTION WORKSPACE_SUBSCRIBER                                                            \
+FME_TRANSFORMATION_LOG_DIR "!FME_SERVER_ROOT!/Logs/engine/current/jobs"                                    \
+FME_TRANSFORMATION_LOG_NAME "!FME_AUTO_FILE_NAME_JOBID!.log"              					\
+SUCCESS_RESPONSE 0:Translation Successful|NotificationLocation=!FME_AUTO_DIR_NAME!_nw|NumFeaturesOutput=!FME_NUM_FEATURES_OUTPUT!|LogFileName=!FME_TRANSFORMATION_LOG_NAME! \
+FAILURE_RESPONSE !FME_ERROR_NUMBER!:!FME_ERROR_MSG!|LogFileName=!FME_TRANSFORMATION_LOG_NAME!
+
+# ************** SAFE FME ENGINE SETTINGS END **************
