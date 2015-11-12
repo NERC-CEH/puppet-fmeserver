@@ -73,10 +73,10 @@ class fmeserver::install (
     creates => $install_directory,
   }
 
-  file { "$install_config/Server/fmeEngineConfig.txt" :
+  file { "$install_directory/Server/fmeEngineConfig.txt" :
     owner   => $user,
     group   => $group,
-    mode    => '0640',
+    mode    => '0644',
     content => template('fmeserver/fmeEngineConfig.erb'),
   }
 }
