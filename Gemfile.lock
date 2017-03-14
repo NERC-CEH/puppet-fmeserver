@@ -56,6 +56,7 @@ DEPENDENCIES
   puppet
   puppet-lint
   puppetlabs_spec_helper
+  rake
   rspec
   rspec-puppet
 
