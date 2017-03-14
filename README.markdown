@@ -40,6 +40,8 @@ This module only covers the FME Server **for linux** and has been tested with ve
 
 # RSpec Testing
 
+[![Build Status](https://travis-ci.org/NERC-CEH/puppet-fmeserver.svg?branch=master)](https://travis-ci.org/NERC-CEH/puppet-fmeserver)
+
 Using [rspec-puppet](http://rspec-puppet.com/) `make` to run tests
 
 # Contributors
