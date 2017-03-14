@@ -38,6 +38,10 @@ Enable SDE Formats
 
 This module only covers the FME Server **for linux** and has been tested with version 2015 on Ubuntu 14.04
 
+# RSpec Testing
+
+Using [rspec-puppet](http://rspec-puppet.com/)
+
 # Contributors
 
 Christopher Johnson - cjohn@ceh.ac.uk

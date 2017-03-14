@@ -49,4 +49,4 @@ class fmeserver::license (
     refreshonly => true,
     require     => Class['fmeserver'],
   }
-} 
+}

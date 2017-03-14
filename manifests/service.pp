@@ -10,8 +10,8 @@ define fmeserver::service (
   $install_directory = $fmeserver::install_directory,
 ) {
   $init_script = "/etc/init.d/${name}"
-  
-  $start_runlevel = $osfamily ? {
+
+  $start_runlevel = $::osfamily ? {
     'Debian' => '2',
     'RedHat' => '5',
   }
