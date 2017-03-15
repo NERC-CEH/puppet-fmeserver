@@ -47,8 +47,8 @@ class fmeserver (
   if $manage_user {
     # Ensure the fme user is present
     user { $user :
-      uid    => $uid,
       ensure => present,
+      uid    => $uid,
       gid    => $group,
     }
   }
@@ -56,8 +56,8 @@ class fmeserver (
   if $manage_group {
     # Ensure the fme group is present
     group { $group :
-      gid    => $gid,
       ensure => present,
+      gid    => $gid,
     }
   }
 

@@ -17,7 +17,7 @@ class fmeserver::install (
   $lsb_core_version  = $fmeserver::lsb_core_version,
 ) {
   $install_media    = "${home_directory}/fme-server.run"
-  $install_download = "/tmp/fme-server.run"
+  $install_download = '/tmp/fme-server.run'
   $install_config   = "${home_directory}/install.cfg"
 
   file { $home_directory :
@@ -35,8 +35,8 @@ class fmeserver::install (
     }
 
     file { $install_media :
-      source  => $install_download,
       ensure  => file,
+      source  => $install_download,
       mode    => '0755',
       require => Wget::Fetch[$install_source],
       before  => Exec['install_fmeserver'],
@@ -73,7 +73,7 @@ class fmeserver::install (
     creates => $install_directory,
   }
 
-  file { "$install_directory/Server/fmeEngineConfig.txt" :
+  file { "${install_directory}/Server/fmeEngineConfig.txt" :
     owner   => $user,
     group   => $group,
     mode    => '0644',
