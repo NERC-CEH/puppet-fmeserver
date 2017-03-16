@@ -67,7 +67,6 @@ class fmeserver::install (
 
   exec { 'install_fmeserver' :
     command => "${install_media} -- --file ${install_config}",
-    user    => $user,
     timeout => $timeout,
     require => File[$install_config],
     creates => $install_directory,
