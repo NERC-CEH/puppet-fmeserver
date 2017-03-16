@@ -39,6 +39,7 @@ define fmeserver::service (
   }
 
   service { $name :
-    ensure => running,
+    ensure   => running,
+    provider => init,
   }
 }
