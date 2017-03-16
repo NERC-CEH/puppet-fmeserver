@@ -76,6 +76,7 @@ class fmeserver::install (
     owner   => $user,
     group   => $group,
     mode    => '0644',
+    require => Exec['install_fmeserver'],
     content => template('fmeserver/fmeEngineConfig.erb'),
   }
 }
