@@ -18,10 +18,10 @@ define fmeserver::service (
 
   $kill_runlevel = '6'
 
-  file { "${init_script}" :
-    ensure  => file,
-    mode    => '0755',
-    source  => "${install_directory}/Server/startup/${name}",
+  file { $init_script :
+    ensure => file,
+    mode   => '0755',
+    source => "${install_directory}/Server/startup/${name}",
   }
 
   file { "/etc/rc${start_runlevel}.d/S${start_priority}${name}" :
