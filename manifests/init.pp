@@ -63,34 +63,34 @@ class fmeserver (
 
   include fmeserver::install
 
-  fmeserver::service { 'FMEServerDatabaseStart' :
-    start_priority => 98,
+  fmeserver::service { 'FMEServerAppServer' :
+    start_priority => 99,
     stop_priority  => 99,
   }
 
-  fmeserver::service { 'FMEServerSMTPRelayStart' :
-    start_priority => 98,
-    stop_priority  => 99,
-  }
-
-  fmeserver::service { 'FMEServerStart' :
+  fmeserver::service { 'FMEServerCleanup' :
     start_priority => 99,
     stop_priority  => 98,
   }
 
-  fmeserver::service { 'FMEServerAppServerStart' :
+  fmeserver::service { 'FMEServerCore' :
     start_priority => 99,
+    stop_priority  => 98,
+  }
+
+  fmeserver::service { 'FMEServerDatabase' :
+    start_priority => 98,
     stop_priority  => 99,
   }
 
-  fmeserver::service { 'FMEServerCleanupStart' :
+  fmeserver::service { 'FMEServerEngines' :
     start_priority => 99,
-    stop_priority  => 99,
+    stop_priority  => 98,
   }
 
-  fmeserver::service { 'FMEServerWebSocketStart' :
+  fmeserver::service { 'FMEServerWebSocket' :
     start_priority => 99,
-    stop_priority  => 99,
+    stop_priority  => 98,
   }
 
   Class['fmeserver::install'] ->

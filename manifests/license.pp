@@ -20,7 +20,7 @@ class fmeserver::license (
     fail('You must include the fmeserver before you attempt to license')
   }
 
-  $fmelicensingassistant = "${fmeserver::install_directory}/Server/fme/fmelicensingassistant"
+  $fmelicensingassistant = '/opt/fme-engine-2017/fmelicensingassistant'
 
   # Install the required packages if requested
   if $libgtkglext1_version {

@@ -20,5 +20,4 @@ describe 'fmeserver::install' do
   it { is_expected.to contain_package('zip') }
   it { is_expected.to contain_file('/opt/safe/install.cfg') }
   it { is_expected.to contain_exec('install_fmeserver') }
-  it { is_expected.to contain_file('/opt/safe/fmeserver/Server/fmeEngineConfig.txt') }
 end
