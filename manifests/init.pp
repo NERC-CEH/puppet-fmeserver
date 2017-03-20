@@ -12,6 +12,10 @@ class fmeserver (
 ) {
 
   include docker
+
+  class {'docker::compose' :
+    ensure => present,
+  }
   
   file { '/fmeserverdata' :
     ensure => directory,
@@ -25,7 +29,7 @@ class fmeserver (
     },
   }
 
-  docker::docker_compose { '/tmp/docker-compose.yml' :
+  docker_compose { '/tmp/docker-compose.yml' :
     ensure => present,
     content => template('fmeserver/docker-compose.yml.erb'),
     scale   => {
