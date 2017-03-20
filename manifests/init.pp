@@ -60,40 +60,4 @@ class fmeserver (
       gid    => $gid,
     }
   }
-
-  include fmeserver::install
-
-  fmeserver::service { 'FMEServerAppServer' :
-    start_priority => 99,
-    stop_priority  => 99,
-  }
-
-  fmeserver::service { 'FMEServerCleanup' :
-    start_priority => 99,
-    stop_priority  => 98,
-  }
-
-  fmeserver::service { 'FMEServerCore' :
-    start_priority => 99,
-    stop_priority  => 98,
-  }
-
-  fmeserver::service { 'FMEServerDatabase' :
-    start_priority => 98,
-    stop_priority  => 99,
-  }
-
-  fmeserver::service { 'FMEServerEngines' :
-    start_priority => 99,
-    stop_priority  => 98,
-  }
-
-  fmeserver::service { 'FMEServerWebSocket' :
-    start_priority => 99,
-    stop_priority  => 98,
-  }
-
-  Class['fmeserver::install'] ->
-    Fmeserver::Service <| start_priority == 98 |> ->
-    Fmeserver::Service <| start_priority == 99 |>
 }
