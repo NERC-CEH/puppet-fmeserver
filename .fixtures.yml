@@ -1,5 +1,0 @@
-fixtures:
-  forge_modules:
-    wget: 
-      repo: "maestrodev/wget"
-      ref: "1.7.3"

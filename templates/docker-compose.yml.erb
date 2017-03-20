@@ -1,0 +1,89 @@
+
+# This is a docker compose file for starting a full FME Server with one engine.
+#
+# By default, it will mount the FME Server shared data to /fmeserverdata, and it will put the FME Server database files in
+# a docker volume called "database"
+
+version: "2"
+services:
+ # fmeserverdb is the database container for FME Server.
+ fmeserverdb:
+  image: safesoftware/fmeserver-db-2017
+  volumes:
+   - database:/var/lib/postgresql/data
+  restart: always
+  networks:
+   - database
+
+ # fmeservercore is the container running the FME Server core components.
+ # This exposes port 25 for receiving emails as FME Server and 7078 for the
+ # web socket connection
+ fmeservercore:
+  image: safesoftware/fmeserver-core-2017
+  volumes:
+   - /fmeserverdata:/data/fmeserverdata
+  ports:
+   - "25:7125"
+   - 7078:7078
+  hostname: fmeservercore
+  restart: always
+  depends_on: 
+   - fmeserverdb
+  networks:
+   - database
+   - web
+
+
+ # fmeserverweb is the web front end container for FME Server.  This runs Apache tomcat and hosts the FME Server webapps
+ # EXTERNALHOSTNAME is used for the topic monitoring in the web ui and should be set to the physical host the container is running on
+ fmeserverweb:
+  image: safesoftware/fmeserver-web-2017
+  volumes:
+   - /fmeserverdata:/data/fmeserverdata
+  ports:
+   - 80:8080
+  environment:
+   - EXTERNALHOSTNAME=<%= @hostname %>
+  hostname: fmeserverweb
+  restart: always
+  depends_on: 
+   - fmeservercore
+  networks:
+   - web
+
+ # fmeserverengine is the Engine that connects to the Server core
+ # EXTERNALHOSTNAME is used for the data download service result URL and should be set to the physical host the container is running on
+ fmeserverengine:
+  image: safesoftware/fmeserver-engine-2017
+  volumes:   
+   - /fmeserverdata/repositories:/data/fmeserverdata/repositories:ro
+   - /fmeserverdata/resources/backups:/data/fmeserverdata/resources/backups
+   - /fmeserverdata/resources/dashboards:/data/fmeserverdata/resources/dashboards
+   - /fmeserverdata/resources/data:/data/fmeserverdata/resources/data
+   - /fmeserverdata/resources/engine:/data/fmeserverdata/resources/engine
+   - /fmeserverdata/resources/logs:/data/fmeserverdata/resources/logs
+   - /fmeserverdata/resources/system/temp/engineresults:/data/fmeserverdata/resources/system/temp/engineresults
+   - /fmeserverdata/resources/system/temp/requestdata:/data/fmeserverdata/resources/system/temp/requestdata:ro
+   - /fmeserverdata/resources/system/temp/subscriptions:/data/fmeserverdata/resources/system/temp/subscriptions:ro
+   - /fmeserverdata/resources/system/temp/upload:/data/fmeserverdata/resources/system/temp/upload:ro
+   - /fmeserverdata/resources/temp:/data/fmeserverdata/resources/temp
+   - /fmeserverdata/localization:/data/fmeserverdata/localization
+  restart: always
+  depends_on: 
+   - fmeservercore
+  environment:
+   - EXTERNALHOSTNAME=<%= @hostname %>
+  networks:
+   - database
+   - web
+
+networks:
+  database:
+    driver: bridge
+  web:
+    driver: bridge
+    
+volumes:
+   database:
+      driver: local
+
