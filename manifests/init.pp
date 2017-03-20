@@ -7,17 +7,25 @@
 # [*hostname*]          where this fme server will be run from
 #
 class fmeserver (
-  $hostname = $::fqdn,
-  $engines  = 2,
+  $hostname      = $fqdn,
+  $engines       = 2,
 ) {
 
-  include ::docker
+  include docker
   
-  file { '/fmeserverdata':
+  file { '/fmeserverdata' :
     ensure => directory,
   }
 
-  file { '/tmp/docker-compose.yml':
+  file { '/tmp/docker-compose.yml' :
+    ensure => present,
+    content => template('fmeserver/docker-compose.yml.erb'),
+    scale   => {
+      'fmeserverengine' => $engines,
+    },
+  }
+
+  docker::docker_compose { '/tmp/docker-compose.yml' :
     ensure => present,
     content => template('fmeserver/docker-compose.yml.erb'),
     scale   => {
