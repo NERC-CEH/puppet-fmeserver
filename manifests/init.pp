@@ -24,14 +24,10 @@ class fmeserver (
   file { '/tmp/docker-compose.yml' :
     ensure => present,
     content => template('fmeserver/docker-compose.yml.erb'),
-    scale   => {
-      'fmeserverengine' => $engines,
-    },
   }
 
   docker_compose { '/tmp/docker-compose.yml' :
     ensure => present,
-    content => template('fmeserver/docker-compose.yml.erb'),
     scale   => {
       'fmeserverengine' => $engines,
     },
