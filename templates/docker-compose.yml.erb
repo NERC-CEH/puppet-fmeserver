@@ -21,6 +21,7 @@ services:
  fmeservercore:
   image: safesoftware/fmeserver-core-2017
   volumes:
+   - /usr/lib/oracle/11.2/client64:/usr/lib/oracle/11.2/client64
    - /fmeserverdata:/data/fmeserverdata
   ports:
    - "25:7125"
@@ -29,6 +30,8 @@ services:
   restart: always
   depends_on: 
    - fmeserverdb
+  environment:
+   - ORACLE_HOME=/usr/lib/oracle/11.2/client64/lib
   networks:
    - database
    - web
