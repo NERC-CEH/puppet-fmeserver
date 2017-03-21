@@ -56,6 +56,7 @@ services:
  fmeserverengine:
   image: safesoftware/fmeserver-engine-2017
   volumes:   
+   - /usr/lib/oracle/11.2/client64:/usr/lib/oracle/11.2/client64
    - /fmeserverdata/repositories:/data/fmeserverdata/repositories:ro
    - /fmeserverdata/resources/backups:/data/fmeserverdata/resources/backups
    - /fmeserverdata/resources/dashboards:/data/fmeserverdata/resources/dashboards
@@ -72,6 +73,7 @@ services:
   depends_on: 
    - fmeservercore
   environment:
+   - ORACLE_HOME=/usr/lib/oracle/11.2/client64/lib
    - EXTERNALHOSTNAME=<%= @hostname %>
   networks:
    - database
