@@ -8,7 +8,6 @@
 #
 class fmeserver (
   $hostname      = $fqdn,
-  $engines       = 2,
 ) {
 
   include docker
@@ -28,8 +27,5 @@ class fmeserver (
 
   docker_compose { '/tmp/docker-compose.yml' :
     ensure => present,
-    scale   => {
-      'fmeserverengine' => $engines,
-    },
   }
 }
