@@ -57,6 +57,7 @@ services:
   image: safesoftware/fmeserver-engine-2017
   volumes:   
    - /usr/lib/oracle:/usr/lib/oracle
+   - /usr/include/oracle:/usr/include/oracle
    - /fmeserverdata/repositories:/data/fmeserverdata/repositories:ro
    - /fmeserverdata/resources/backups:/data/fmeserverdata/resources/backups
    - /fmeserverdata/resources/dashboards:/data/fmeserverdata/resources/dashboards
